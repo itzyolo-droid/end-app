@@ -22,7 +22,7 @@ const getLocalIP = () => {
     // Ignore and use manual fallback
   }
   // Manual fallback: replace with your actual IPv4 from 'ipconfig'
-  return '10.7.42.159';
+  return '192.168.0.121';
 };
 
 // Configuration for different environments
@@ -44,8 +44,13 @@ const config = {
 // Current environment - change this as needed
 const CURRENT_ENVIRONMENT = ENVIRONMENTS.LOCAL_NETWORK;
 
-// Export the current configuration
-export const currentConfig = config[CURRENT_ENVIRONMENT];
+// Export the current configuration with dynamic fallback to EXPO_PUBLIC_API_URL
+const selectedConfig = config[CURRENT_ENVIRONMENT] || config[ENVIRONMENTS.DEVELOPMENT];
+export const currentConfig = {
+  ...selectedConfig,
+  API_BASE_URL: process.env.EXPO_PUBLIC_API_URL || selectedConfig.API_BASE_URL,
+};
+
 
 // Helper function to get configuration for a specific environment
 export const getConfig = (environment = CURRENT_ENVIRONMENT) => {

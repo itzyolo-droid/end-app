@@ -13,6 +13,7 @@ __pycache__/
 
 # AI Models
 backend/ai_models/
+Model_API/
 *.pth
 *.pt
 *.onnx
